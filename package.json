@@ -33,7 +33,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "MONGOOSE_TREE_SHORTID=1 ./node_modules/.bin/mocha\nMONGOOSE_TREE_SHORTID=0 ./node_modules/.bin/mocha"
+    "test": "MONGOOSE_TREE_SHORTID=1 ./node_modules/.bin/mocha && MONGOOSE_TREE_SHORTID=0 ./node_modules/.bin/mocha"
   },
   "keywords": [
     "mongoose",
