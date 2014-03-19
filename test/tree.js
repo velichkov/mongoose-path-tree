@@ -3,7 +3,7 @@ var Tree = require('../lib/tree');
 var Async = require('async');
 var should = require('should');
 var _ = require('lodash');
-
+var shortId = require('shortid');
 
 var Schema = Mongoose.Schema;
 
@@ -12,11 +12,29 @@ Mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/mongoose-
 
 describe('tree tests', function () {
 
-    // Schema for tests
-    var UserSchema = new Schema({
+    var userSchema = {
         name: String
-    });
-    UserSchema.plugin(Tree, {pathSeparator: '.'});
+    };
+
+    var pluginOptions = {
+        pathSeparator: '.'
+    };
+
+    if (process.env.MONGOOSE_TREE_SHORTID === '1') {
+        userSchema._id = {
+            type: String,
+            unique: true,
+            'default': function(){
+                return shortId.generate();
+            }
+        };
+
+        pluginOptions.idType = String
+    }
+
+    // Schema for tests
+    var UserSchema = new Schema(userSchema);
+    UserSchema.plugin(Tree, pluginOptions);
     var User = Mongoose.model('User', UserSchema);
 
     // Set up the fixture
@@ -77,6 +95,7 @@ describe('tree tests', function () {
             User.findOne({ name: 'Emily' }, function (err, emily) {
 
                 emily.remove(function (err) {
+
                     should.not.exist(err);
 
                     User.find(function (err, users) {
@@ -190,6 +209,7 @@ describe('tree tests', function () {
                 should.not.exist(err);
 
                 adam.getChildren(function (err, users) {
+
                     should.not.exist(err);
 
                     users.length.should.equal(2);
@@ -276,8 +296,8 @@ describe('tree tests', function () {
             User.findOne({ 'name': 'Dann' }, function (err, dann) {
 
                 dann.getAncestors(function (err, ancestors) {
-                    should.not.exist(err);
 
+                    should.not.exist(err);
                     ancestors.length.should.equal(2);
                     _.pluck(ancestors, 'name').should.include('Carol').and.include('Adam');
                     done();
@@ -329,8 +349,28 @@ describe('tree tests', function () {
 
                 should.not.exist(err);
                 childrenTree.length.should.equal(2);
-                childrenTree[0].children[1].children[0].children[0].name.should.equal('Emily');
-                childrenTree[0].children[1].children[0].children.length.should.equal(1);
+
+                var adamTree = _.find(childrenTree, function(x){ return x.name == 'Adam'});
+                var edenTree = _.find(childrenTree, function(x){ return x.name == 'Eden'});
+
+                var bobTree = _.find(adamTree.children, function(x){ return x.name == 'Bob'});
+
+                var carolTree = _.find(adamTree.children, function(x){ return x.name == 'Carol'});
+                var danTree = _.find(carolTree.children, function(x){ return x.name == 'Dann'});
+                var emilyTree = _.find(danTree.children, function(x){ return x.name == 'Emily'});
+
+
+                adamTree.children.length.should.equal(2);
+                edenTree.children.length.should.equal(0);
+
+                bobTree.children.length.should.equal(0);
+
+                carolTree.children.length.should.equal(1);
+
+                danTree.children.length.should.equal(1);
+                danTree.children[0].name.should.equal('Emily');
+
+                emilyTree.children.length.should.equal(0);
                 done();
             });
         });
@@ -342,9 +382,19 @@ describe('tree tests', function () {
                 adam.getChildrenTree(function (err, childrenTree) {
 
                     should.not.exist(err);
-                    childrenTree.length.should.equal(2);
-                    childrenTree[1].children[0].children[0].name.should.equal('Emily');
-                    childrenTree[1].children[0].children.length.should.equal(1);
+
+                    var bobTree = _.find(childrenTree, function(x){ return x.name == 'Bob'});
+
+                    var carolTree = _.find(childrenTree, function(x){ return x.name == 'Carol'});
+                    var danTree = _.find(carolTree.children, function(x){ return x.name == 'Dann'});
+                    var emilyTree = _.find(danTree.children, function(x){ return x.name == 'Emily'});
+
+                    bobTree.children.length.should.equal(0);
+                    carolTree.children.length.should.equal(1);
+                    danTree.children.length.should.equal(1);
+                    danTree.children[0].name.should.equal('Emily');
+                    emilyTree.children.length.should.equal(0);
+
                     done();
                 });
             });
