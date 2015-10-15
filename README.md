@@ -24,7 +24,7 @@ Model.plugin(tree, {
 Then you can use the plugin on your schemas
 
 ```javascript
-var tree = require('mongoose-tree');
+var tree = require('mongoose-path-tree');
 
 var UserSchema = new Schema({
   name : String
