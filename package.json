@@ -24,16 +24,18 @@
   },
   "devDependencies": {
     "async": "^1.5.2",
-    "should": "^8.3.1",
+    "codeclimate-test-reporter": "^0.3.1",
+    "istanbul": "^0.4.3",
     "lodash": "^4.11.1",
     "mocha": "^2.4.5",
-    "shortid": "^2.2.6"
+    "shortid": "^2.2.6",
+    "should": "^8.3.1"
   },
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "MONGOOSE_TREE_SHORTID=1 ./node_modules/.bin/mocha && MONGOOSE_TREE_SHORTID=0 ./node_modules/.bin/mocha"
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha"
   },
   "keywords": [
     "mongoose",
