@@ -23,11 +23,11 @@
     "stream-worker": "0.x.x"
   },
   "devDependencies": {
-    "async": "0.x.x",
+    "async": "^1.5.2",
     "should": "^8.3.1",
     "lodash": "2.x.x",
-    "mocha": "1.x.x",
-    "shortid": "2.0.0"
+    "mocha": "^2.4.5",
+    "shortid": "^2.2.6"
   },
   "directories": {
     "test": "test"
