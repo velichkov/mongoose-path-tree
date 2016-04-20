@@ -1,5 +1,7 @@
 ## mongoose-path-tree
 [![Build Status](https://travis-ci.org/swayf/mongoose-path-tree.png)](https://travis-ci.org/swayf/mongoose-path-tree)
+[![Dependency Status](https://david-dm.org/swayf/mongoose-path-tree.svg)](https://david-dm.org/swayf/mongoose-path-tree)
+[![devDependency Status](https://david-dm.org/swayf/mongoose-path-tree/dev-status.svg)](https://david-dm.org/swayf/mongoose-path-tree#info=devDependencies)
 
 Implements the materialized path strategy with cascade child re-parenting on delete for storing a hierarchy of documents with mongoose
 Version with all collected features and fixes from mongoose-tree, mongoose-tree-fix, mongoose-tree2, mongoose-reparenting-tree
