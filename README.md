@@ -1,5 +1,10 @@
 ## mongoose-path-tree
 [![Build Status](https://travis-ci.org/swayf/mongoose-path-tree.png)](https://travis-ci.org/swayf/mongoose-path-tree)
+
+[![Code Climate](https://codeclimate.com/github/velichkov/mongoose-path-tree/badges/gpa.svg)](https://codeclimate.com/github/velichkov/mongoose-path-tree)
+[![Test Coverage](https://codeclimate.com/github/velichkov/mongoose-path-tree/badges/coverage.svg)](https://codeclimate.com/github/velichkov/mongoose-path-tree/coverage)
+[![Issue Count](https://codeclimate.com/github/velichkov/mongoose-path-tree/badges/issue_count.svg)](https://codeclimate.com/github/velichkov/mongoose-path-tree)
+
 [![Dependency Status](https://david-dm.org/swayf/mongoose-path-tree.svg)](https://david-dm.org/swayf/mongoose-path-tree)
 [![devDependency Status](https://david-dm.org/swayf/mongoose-path-tree/dev-status.svg)](https://david-dm.org/swayf/mongoose-path-tree#info=devDependencies)
 
