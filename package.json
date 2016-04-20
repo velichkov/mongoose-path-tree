@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "async": "0.x.x",
-    "should": "1.x.x",
+    "should": "^8.3.1",
     "lodash": "2.x.x",
     "mocha": "1.x.x",
     "shortid": "2.0.0"
